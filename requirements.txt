@@ -1,4 +1,4 @@
-aio-pika==2.8.3
+aio-pika
 gpiozero
 python-daemon
 click
