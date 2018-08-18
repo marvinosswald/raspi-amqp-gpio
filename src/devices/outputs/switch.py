@@ -16,10 +16,12 @@ class Switch(Output):
 
     def initIO(self):
         """"""
-        self.io = OutputDevice(self.config['output'][0])
+        self.io = OutputDevice(self.device_config['output'][0])
 
     def exec(self, context):
         if context['value'] == 0:
+            self.io.on()
             print('OFF')
         else:
+            self.io.off()
             print('ON')
