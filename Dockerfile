@@ -6,9 +6,9 @@ ENV INITSYSTEM on
 # pip install python deps from requirements.txt
 # For caching until requirements.txt changes
 COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
+RUN pip3 install -r /requirements.txt
 
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-CMD ["python", "src/run.py"]
+CMD ["python3", "src/run.py"]
