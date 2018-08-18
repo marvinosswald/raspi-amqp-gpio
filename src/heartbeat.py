@@ -29,7 +29,7 @@ class Heartbeat:
 
         await connection.close()
 
-        await asyncio.sleep(30)
+        await asyncio.sleep(self.config['HEARTBEATS_INTERVAL'])
         await self.main(loop)
 
     def get_ip(self):
