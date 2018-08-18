@@ -16,7 +16,6 @@ class Output(Device):
         loop.create_task(self.main(loop))
 
     async def on_message(self, message: IncomingMessage):
-        print(message)
         if message.headers['target'] == self.name and self.ifPropertyAllowed(message.headers['property']) and self.runChecks(message.headers):
             self.exec(message.headers, message)
         else:

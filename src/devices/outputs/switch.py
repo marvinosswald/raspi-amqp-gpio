@@ -16,7 +16,7 @@ class Switch(Output):
 
     def initIO(self):
         """"""
-        self.io = OutputDevice(self.device_config['output'][0])
+        self.io = OutputDevice(self.device_config['output'][0], initial_value=True)
 
     def exec(self, context, message):
         print("raw value: {}".format(context['value']))

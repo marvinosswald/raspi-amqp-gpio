@@ -19,8 +19,8 @@ class Shutter(Output):
 
     def initIO(self):
         """"""
-        self.up = OutputDevice(self.device_config['output'][0])
-        self.down = OutputDevice(self.device_config['output'][1])
+        self.up = OutputDevice(self.device_config['output'][0], initial_value=True)
+        self.down = OutputDevice(self.device_config['output'][1], initial_value=True)
 
     def exec(self, context, message):
         if context['property'] == 'moveForTime':
