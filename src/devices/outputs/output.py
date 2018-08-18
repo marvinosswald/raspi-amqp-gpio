@@ -42,4 +42,4 @@ class Output(Device):
         queue = await channel.declare_queue(self.config['COMMANDS_QUEUE'])
 
         # Start listening the queue with name 'hello'
-        await queue.consume(self.on_message, no_ack=True)
+        await queue.consume(self.on_message)
