@@ -1,5 +1,5 @@
 from devices.outputs.output import Output
-#from gpiozero import OutputDevice
+from gpiozero import OutputDevice
 
 
 class Switch(Output):
@@ -16,14 +16,14 @@ class Switch(Output):
 
     def initIO(self):
         """"""
- #       self.io = OutputDevice(self.device_config['output'][0])
+        self.io = OutputDevice(self.device_config['output'][0])
 
     def exec(self, context, message):
         print("raw value: {}".format(context['value']))
         if int(context['value']) == 0:
-  #          self.io.on()
+            self.io.on()
             print("powerState of {} is OFF".format(self.name))
         else:
-   #         self.io.off()
+            self.io.off()
             print("powerState of {} is ON".format(self.name))
         message.ack()
