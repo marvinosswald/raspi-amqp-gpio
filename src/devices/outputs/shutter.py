@@ -8,6 +8,8 @@ class Shutter(Output):
     ]
     up = None
     down = None
+    # 0 = DECREASING; 1 = INCREASING; 2 = STOPPED;
+    positionState = 2
 
     def __init__(self, device_config, config):
         self.type = "shutter"
@@ -22,18 +24,24 @@ class Shutter(Output):
 
     def exec(self, context):
         if context['property'] == 'moveForTime':
-            loop = asyncio.get_event_loop()
-            loop.create_task(self.moveForTime(context['value']))
+            if self.positionState == 2:
+                loop = asyncio.get_event_loop()
+                loop.create_task(self.moveForTime(context['value']))
+            else:
+                print("{} is busy".format(self.name))
 
     async def moveForTime(self, value):
-        io = None
+        time = abs(int(value))
         if int(value) > 0:
+            self.positionState = 1
             io = self.up
-            print("Driving {} up for {} seconds".format(self.name, abs(value)))
+            print("Driving {} up for {} seconds".format(self.name, time))
         else:
+            self.positionState = 0
             io = self.down
-            print("Driving {} down for {} seconds".format(self.name, abs(value)))
+            print("Driving {} down for {} seconds".format(self.name, time))
         # for value seconds then on
         io.off()
-        await asyncio.sleep(abs(value))
+        await asyncio.sleep(time)
         io.on()
+        self.positionState = 2
