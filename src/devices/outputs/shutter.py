@@ -27,10 +27,12 @@ class Shutter(Output):
 
     async def moveForTime(self, value):
         io = None
-        if value > 0:
+        if int(value) > 0:
             io = self.up
+            print("Driving {} up for {} seconds".format(self.name, abs(value)))
         else:
             io = self.down
+            print("Driving {} down for {} seconds".format(self.name, abs(value)))
         # for value seconds then on
         io.off()
         await asyncio.sleep(abs(value))
