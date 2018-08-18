@@ -17,7 +17,7 @@ class Output(Device):
 
     async def on_message(self, message: IncomingMessage):
         if message.headers['target'] == self.name and self.ifPropertyAllowed(message.headers['property']) and self.runChecks(message.headers):
-            self.exec(message.headers)
+            self.exec(message.headers, message)
 
     def ifPropertyAllowed(self, property):
         if property in self.controllable_properties:
@@ -26,7 +26,7 @@ class Output(Device):
     def runChecks(self, context):
         return True
 
-    def exec(self, context):
+    def exec(self, context,message: IncomingMessage):
         raise Exception("no handling for {} defined".format(self.type))
 
     async def main(self, loop):

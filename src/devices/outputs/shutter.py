@@ -22,13 +22,15 @@ class Shutter(Output):
         self.up = OutputDevice(self.device_config['output'][0])
         self.down = OutputDevice(self.device_config['output'][1])
 
-    def exec(self, context):
+    def exec(self, context, message):
         if context['property'] == 'moveForTime':
             if self.positionState == 2:
                 loop = asyncio.get_event_loop()
                 loop.create_task(self.moveForTime(context['value']))
+                message.ack()
             else:
                 print("{} is busy".format(self.name))
+                message.nack()
 
     async def moveForTime(self, value):
         print(value)
