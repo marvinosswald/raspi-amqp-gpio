@@ -1,8 +1,6 @@
 from core import AMQPExposerCore
-import click
 
-@click.command()
-def run(config, devices):
+def run():
     core = AMQPExposerCore()
 
 
