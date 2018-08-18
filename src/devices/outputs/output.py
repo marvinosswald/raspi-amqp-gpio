@@ -33,14 +33,14 @@ class Output(Device):
     async def main(self, loop):
         # Perform connection
         connection = await connect(
-            self.config['RABBITMQ']['HOST'], loop=loop
+            self.config['HOST'], loop=loop
         )
 
         # Creating a channel
         channel = await connection.channel()
 
         # Declaring queue
-        queue = await channel.declare_queue(self.config['COMMAND']['QUEUE'])
+        queue = await channel.declare_queue(self.config['COMMANDS_QUEUE'])
 
         # Start listening the queue with name 'hello'
         await queue.consume(self.on_message, no_ack=True)

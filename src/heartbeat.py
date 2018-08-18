@@ -13,7 +13,7 @@ class Heartbeat:
     async def main(self, loop):
         # Perform connection
         connection = await connect(
-            self.config['RABBITMQ']['HOST'], loop=loop
+            self.config['HOST'], loop=loop
         )
 
         # Creating a channel
@@ -21,8 +21,8 @@ class Heartbeat:
 
         # Sending the message
         await channel.default_exchange.publish(
-            Message(bytes('Client Alive: ' + self.config['DEFAULT']['CLIENTNAME'] + '('+self.get_ip()+')', 'utf-8')),
-            routing_key=self.config['HEARTBEAT']['ROUTING_KEY'],
+            Message(bytes('Client Alive: ' + self.config['CLIENTNAME'] + '('+self.get_ip()+')', 'utf-8')),
+            routing_key=self.config['HEARTBEATS_ROUTING_KEY'],
         )
 
         print(" [x] Sent heartbeat ❤️")

@@ -1,5 +1,5 @@
 from devices.outputs.output import Output
-from gpiozero import OutputDevice
+#from gpiozero import OutputDevice
 
 
 class Switch(Output):
@@ -16,7 +16,7 @@ class Switch(Output):
 
     def initIO(self):
         """"""
-        self.io = OutputDevice(self.config.output[0])
+        #self.io = OutputDevice(self.config.output[0])
 
     def exec(self, context):
         if context['value'] == 0:

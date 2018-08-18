@@ -2,3 +2,5 @@ aio-pika
 gpiozero
 python-daemon
 click
+python-dotenv
+py-env-config
