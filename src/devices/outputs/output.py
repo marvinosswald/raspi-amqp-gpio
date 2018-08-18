@@ -14,7 +14,6 @@ class Output(Device):
         super().__init__(device_config)
         loop = asyncio.get_event_loop()
         loop.create_task(self.main(loop))
-        #loop.run_forever()
 
     async def on_message(self, message: IncomingMessage):
         if message.headers['target'] == self.name and self.ifPropertyAllowed(message.headers['property']) and self.runChecks(message.headers):

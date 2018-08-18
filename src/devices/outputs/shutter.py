@@ -31,6 +31,7 @@ class Shutter(Output):
                 print("{} is busy".format(self.name))
 
     async def moveForTime(self, value):
+        print(value)
         time = abs(int(value))
         if int(value) > 0:
             self.positionState = 1
