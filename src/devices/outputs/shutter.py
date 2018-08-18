@@ -1,5 +1,5 @@
 from devices.outputs.output import Output
-from gpiozero import OutputDevice
+#from gpiozero import OutputDevice
 import asyncio
 
 class Shutter(Output):
@@ -19,8 +19,8 @@ class Shutter(Output):
 
     def initIO(self):
         """"""
-        self.up = OutputDevice(self.device_config['output'][0])
-        self.down = OutputDevice(self.device_config['output'][1])
+        # self.up = OutputDevice(self.device_config['output'][0])
+        # self.down = OutputDevice(self.device_config['output'][1])
 
     def exec(self, context, message):
         if context['property'] == 'moveForTime':
@@ -37,14 +37,14 @@ class Shutter(Output):
         time = abs(int(value))
         if int(value) > 0:
             self.positionState = 1
-            io = self.up
+            #io = self.up
             print("Driving {} up for {} seconds".format(self.name, time))
         else:
             self.positionState = 0
-            io = self.down
+            #io = self.down
             print("Driving {} down for {} seconds".format(self.name, time))
         # for value seconds then on
-        io.off()
+        #io.off()
         await asyncio.sleep(time)
-        io.on()
+        #io.on()
         self.positionState = 2
