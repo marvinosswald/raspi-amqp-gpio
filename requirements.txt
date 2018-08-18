@@ -2,3 +2,4 @@ aio-pika
 gpiozero
 python-dotenv
 py-env-config
+RPi.Gpio
