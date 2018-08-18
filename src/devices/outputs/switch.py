@@ -19,6 +19,7 @@ class Switch(Output):
         self.io = OutputDevice(self.device_config['output'][0])
 
     def exec(self, context):
+        print(context['value'])
         if int(context['value']) == 0:
             self.io.on()
             print('OFF')
