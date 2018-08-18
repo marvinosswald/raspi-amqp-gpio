@@ -1,0 +1,46 @@
+import asyncio
+
+from aio_pika import IncomingMessage, connect
+
+from devices.device import Device
+
+
+class Output(Device):
+    controllable_properties = None
+
+    def __init__(self, device_config, config):
+        self.type="no output type defined"
+        self.config = config
+        super().__init__(device_config)
+        loop = asyncio.get_event_loop()
+        loop.create_task(self.main(loop))
+        #loop.run_forever()
+
+    async def on_message(self, message: IncomingMessage):
+        if message.headers['target'] == self.name and self.ifPropertyAllowed(message.headers['property']) and self.runChecks(message.headers):
+            self.exec(message.headers)
+
+    def ifPropertyAllowed(self, property):
+        if property in self.controllable_properties:
+            return True
+
+    def runChecks(self, context):
+        return True
+
+    def exec(self, context):
+        raise Exception("no handling for {} defined".format(self.type))
+
+    async def main(self, loop):
+        # Perform connection
+        connection = await connect(
+            self.config['RABBITMQ']['HOST'], loop=loop
+        )
+
+        # Creating a channel
+        channel = await connection.channel()
+
+        # Declaring queue
+        queue = await channel.declare_queue(self.config['COMMAND']['QUEUE'])
+
+        # Start listening the queue with name 'hello'
+        await queue.consume(self.on_message, no_ack=True)

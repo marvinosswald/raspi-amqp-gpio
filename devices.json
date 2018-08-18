@@ -1,0 +1,21 @@
+{
+  "devices": [
+
+    {
+      "name": "fenster1",
+      "type": "switch",
+      "output": [
+        7
+      ]
+
+    },
+    {
+      "name": "shutter1",
+      "type": "shutter",
+      "output": [
+        11,
+        13
+      ]
+    }
+  ]
+}
